@@ -81,11 +81,11 @@ levels = 5
 window_size = 5
 
 
-image1 = plt.imread('images/Umacau.jpg')
-image2 = plt.imread('images/HKU.jpg')
+image1 = plt.imread('images/dog.png')
+image2 = plt.imread('images/tiger.jpg')
 # to align the image to improve the result (optional)
 # three points of each image should be selected
-# image2 = align_images(image1, image2)
+image2 = align_images(image1, image2)
 
 # resize the two images to get better result.
 image_size = (2**(levels+3), 2**(levels+3))
@@ -114,5 +114,5 @@ hybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2
 
 hybrid_image = normalize(hybrid_image)
 plt.imshow(hybrid_image)
-# plt.savefig('hybrid_image4.png')
+plt.savefig('OutputImages/hybrid_image0.png')
 plt.show()
