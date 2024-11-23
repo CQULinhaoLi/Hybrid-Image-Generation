@@ -103,7 +103,7 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
 **HKU badge**
 ### Output
 The hybrid image combines the low-frequency content of `Umacau.jpg` with the high-frequency content of `HKU.jpg`. The result changes interpretation when viewed from different distances.
-- ![Hybrid image](OutputImages/hybrid_image3.png)
+- ![Hybrid image](OutputImages/HybridImages/hybrid_image3.png)
 
 **Hybrid image**
 ## Notes
