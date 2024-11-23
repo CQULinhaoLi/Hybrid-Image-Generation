@@ -36,7 +36,7 @@ Place the images you want to use in the `images/` folder. For example, this proj
 ### Run the Script
 To generate Gaussian and Laplacian pyramids and create the hybrid image, run the main script:
 ```bash
-python main.py
+python hybrid_image.py
 ```
 
 ### Parameters
