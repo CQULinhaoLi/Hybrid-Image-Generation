@@ -1,0 +1,660 @@
+[
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "isExtraImport": true,
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "align",
+        "description": "align",
+        "isExtraImport": true,
+        "detail": "align",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.gridspec",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.gridspec",
+        "description": "matplotlib.gridspec",
+        "detail": "matplotlib.gridspec",
+        "documentation": {}
+    },
+    {
+        "label": "resize",
+        "importPath": "skimage.transform",
+        "description": "skimage.transform",
+        "isExtraImport": true,
+        "detail": "skimage.transform",
+        "documentation": {}
+    },
+    {
+        "label": "convolve2d",
+        "importPath": "scipy.signal",
+        "description": "scipy.signal",
+        "isExtraImport": true,
+        "detail": "scipy.signal",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_kernel",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def gaussian_kernel(kernel_size, sigma):\n    \"\"\"Generate a Gaussian kernel.\"\"\"\n    kernel = np.zeros((kernel_size, kernel_size), dtype=np.float32)\n    center = kernel_size // 2\n    for i in range(kernel_size):\n        for j in range(kernel_size):\n            x, y = i - center, j - center\n            kernel[i, j] = np.exp(-(x**2 + y**2) / (2 * sigma**2))\n    kernel /= kernel.sum()\n    return kernel",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_blur",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def gaussian_blur(image, kernel):\n    \"\"\"Apply Gaussian blur using the given kernel.\"\"\"\n    h, w, c = image.shape\n    pad = kernel.shape[0] // 2\n    padded_image = np.pad(image, [(pad, pad), (pad, pad), (0, 0)], mode='reflect')\n    blurred = np.zeros_like(image, dtype=np.float32)\n    for x in range(h):\n        for y in range(w):\n            for ch in range(c):\n                blurred[x, y, ch] = np.sum(",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "downsample",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def downsample(image):\n    \"\"\"Downsample the image by a factor of 2.\"\"\"\n    return image[::2, ::2]\ndef upsample(image):\n    \"\"\"Upsample the image by a factor of 2.\"\"\"\n    h, w, c = image.shape\n    upsampled = np.zeros((h * 2, w * 2, c), dtype=image.dtype)\n    upsampled[::2, ::2] = image\n    # Fill the gaps using average of neighbors\n    for i in range(h * 2):",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "upsample",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def upsample(image):\n    \"\"\"Upsample the image by a factor of 2.\"\"\"\n    h, w, c = image.shape\n    upsampled = np.zeros((h * 2, w * 2, c), dtype=image.dtype)\n    upsampled[::2, ::2] = image\n    # Fill the gaps using average of neighbors\n    for i in range(h * 2):\n        for j in range(w * 2):\n            if i % 2 == 1 or j % 2 == 1:\n                neighbors = []",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_pyramid",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def gaussian_pyramid(image, levels, kernel):\n    \"\"\"Build Gaussian Pyramid.\"\"\"\n    pyramid = [image]\n    for _ in range(levels):\n        image = gaussian_blur(image, kernel)\n        image = downsample(image)\n        pyramid.append(image)\n    return pyramid\ndef laplacian_pyramid(gaussian_pyramid):\n    \"\"\"Build Laplacian Pyramid.\"\"\"",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "laplacian_pyramid",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def laplacian_pyramid(gaussian_pyramid):\n    \"\"\"Build Laplacian Pyramid.\"\"\"\n    laplacian_pyramid = []\n    for i in range(len(gaussian_pyramid) - 1):\n        upsampled = upsample(gaussian_pyramid[i + 1])\n        upsampled = upsampled[:gaussian_pyramid[i].shape[0], :gaussian_pyramid[i].shape[1]]\n        laplacian = gaussian_pyramid[i] - upsampled\n        laplacian_pyramid.append(laplacian)\n    laplacian_pyramid.append(gaussian_pyramid[-1])\n    return laplacian_pyramid",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "reconstruct_image",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def reconstruct_image(laplacian_pyramid):\n    \"\"\"Reconstruct image from Laplacian Pyramid.\"\"\"\n    image = laplacian_pyramid[-1]\n    for i in range(len(laplacian_pyramid) - 2, -1, -1):\n        upsampled = upsample(image)\n        upsampled = upsampled[:laplacian_pyramid[i].shape[0], :laplacian_pyramid[i].shape[1]]\n        image = upsampled + laplacian_pyramid[i]\n    return image\ndef pyramid_blending(img1, img2, mask, levels, kernel):\n    \"\"\"Perform Pyramid Blending.\"\"\"",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "pyramid_blending",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def pyramid_blending(img1, img2, mask, levels, kernel):\n    \"\"\"Perform Pyramid Blending.\"\"\"\n    gp1 = gaussian_pyramid(img1, levels, kernel)\n    gp2 = gaussian_pyramid(img2, levels, kernel)\n    gpm = gaussian_pyramid(mask, levels, kernel)\n    lp1 = laplacian_pyramid(gp1)\n    lp2 = laplacian_pyramid(gp2)\n    blended_pyramid = []\n    for l1, l2, gm in zip(lp1, lp2, gpm):\n        blended = l1 * gm + l2 * (1 - gm)",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "load_image",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def load_image(path):\n    \"\"\"Load image using PIL.\"\"\"\n    return np.array(Image.open(path).convert(\"RGB\"), dtype=np.float32) / 255.0\ndef save_image(image, path):\n    \"\"\"Save image using PIL.\"\"\"\n    img = Image.fromarray((image * 255).astype(np.uint8))\n    img.save(path)\ndef create_horizontal_gradient_mask(h, w):\n    \"\"\"Create horizontal gradient mask.\"\"\"\n    mask = np.zeros((h, w), dtype=np.float32)",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "save_image",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def save_image(image, path):\n    \"\"\"Save image using PIL.\"\"\"\n    img = Image.fromarray((image * 255).astype(np.uint8))\n    img.save(path)\ndef create_horizontal_gradient_mask(h, w):\n    \"\"\"Create horizontal gradient mask.\"\"\"\n    mask = np.zeros((h, w), dtype=np.float32)\n    for i in range(w):\n        mask[:, i] = i / (w - 1)\n    mask = np.repeat(mask[:, :, np.newaxis], 3, axis=2)  # Expand to 3 channels",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "create_horizontal_gradient_mask",
+        "kind": 2,
+        "importPath": "blending_images.Pyramid_Blending",
+        "description": "blending_images.Pyramid_Blending",
+        "peekOfCode": "def create_horizontal_gradient_mask(h, w):\n    \"\"\"Create horizontal gradient mask.\"\"\"\n    mask = np.zeros((h, w), dtype=np.float32)\n    for i in range(w):\n        mask[:, i] = i / (w - 1)\n    mask = np.repeat(mask[:, :, np.newaxis], 3, axis=2)  # Expand to 3 channels\n    return mask\n# Main script\nif __name__ == \"__main__\":\n    # Load images",
+        "detail": "blending_images.Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "create_elliptical_mask",
+        "kind": 2,
+        "importPath": "blending_images.Region_Blending",
+        "description": "blending_images.Region_Blending",
+        "peekOfCode": "def create_elliptical_mask(h, w, center, axes, angle=0):\n    \"\"\"\n    Create an elliptical mask for Region Blending.\n    :param h: Height of the mask\n    :param w: Width of the mask\n    :param center: Center of the ellipse (x, y)\n    :param axes: Lengths of the ellipse axes (x_radius, y_radius)\n    :param angle: Rotation angle of the ellipse (in degrees)\n    :return: A 2D elliptical mask normalized to [0, 1]\n    \"\"\"",
+        "detail": "blending_images.Region_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "region_blending",
+        "kind": 2,
+        "importPath": "blending_images.Region_Blending",
+        "description": "blending_images.Region_Blending",
+        "peekOfCode": "def region_blending(img1, img2, mask, levels, kernel):\n    \"\"\"\n    Perform Region Blending using Laplacian Pyramid.\n    :param img1: First image\n    :param img2: Second image\n    :param mask: 3-channel mask defining blending region\n    :param levels: Number of pyramid levels\n    :param kernel: Gaussian kernel for pyramid construction\n    :return: Blended image\n    \"\"\"",
+        "detail": "blending_images.Region_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "resize_image",
+        "kind": 2,
+        "importPath": "blending_images.Region_Blending",
+        "description": "blending_images.Region_Blending",
+        "peekOfCode": "def resize_image(image, target_size):\n    \"\"\"Resize image to the target size (height, width).\"\"\"\n    return np.array(Image.fromarray((image * 255).astype(np.uint8)).resize(target_size[::-1])).astype(np.float32) / 255.0\n# Main script for Region Blending\nif __name__ == \"__main__\":\n    # Load two images\n    img1 = load_image(r\"D:/Desktop/CV/CVprojectCode/Region_Blending_img/eye_2.jpg\")\n    img2 = load_image(r\"D:/Desktop/CV/CVprojectCode/Region_Blending_img/hand_2.jpg\")\n    # Ensure images have the same size\n    target_size = (min(img1.shape[0], img2.shape[0]), min(img1.shape[1], img2.shape[1]))",
+        "detail": "blending_images.Region_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "select_points",
+        "kind": 2,
+        "importPath": "align",
+        "description": "align",
+        "peekOfCode": "def select_points(image, title=\"Select points\"):\n    \"\"\"\n    Select points manually on an image.\n    :param image: Input image (H, W, 3)\n    :param title: Title of the plot\n    :return: List of selected points\n    \"\"\"\n    plt.imshow(image)\n    plt.title(title)\n    points = plt.ginput(3)  # Select 3 points",
+        "detail": "align",
+        "documentation": {}
+    },
+    {
+        "label": "align_images",
+        "kind": 2,
+        "importPath": "align",
+        "description": "align",
+        "peekOfCode": "def align_images(image1, image2):\n    \"\"\"\n    Align image2 to image1 using affine transformation.\n    :param image1: Reference image (H, W, 3)\n    :param image2: Target image to be aligned (H, W, 3)\n    :return: Aligned version of image2\n    \"\"\"\n    # Select corresponding points from both images\n    print(\"Select 3 points on the first image.\")\n    points1 = select_points(image1)",
+        "detail": "align",
+        "documentation": {}
+    },
+    {
+        "label": "main_gaussian_laplacian_pyramids",
+        "kind": 2,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "def main_gaussian_laplacian_pyramids(image, kernel, levels):\n    \"\"\"\n    A function to build the Gaussian and Laplacian pyramids of an image\n    :param image: A grayscale or 3 channels image, a numpy array of floats within [0, 1] of shape (N, M) or (N, M, 3)\n    :param kernel: The Gaussian kernel used to build pyramids\n    :param levels: The desired levels in the pyramids\n    \"\"\"\n    image = convert_image_to_floats(image)\n    # Building the Gaussian and Laplacian pyramids\n    gauss_pyr = gaussian_pyramid(image, kernel, levels)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "convert_image_to_floats",
+        "kind": 2,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "def convert_image_to_floats(image):\n    \"\"\"\n    A function to convert an image to a numpy array of floats within [0, 1]\n    :param image: The image to be converted\n    :return: The converted image\n    \"\"\"\n    if np.max(image) <= 1.0:\n        return image\n    else:\n        return image / 255.0",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "rgb_to_gray",
+        "kind": 2,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "def rgb_to_gray(image):\n    \"\"\"\n    A function to convert an image from rgb to gray scale\n    :param image:  The image to be converted\n    :return: The converted image\n    \"\"\"\n    return np.dot(image[..., :3], [0.2989, 0.5870, 0.1140])\nkernel = smooth_gaussian_kernel(0.4)\n# kernel = classical_gaussian_kernel(5, 1)\nlevels = 5",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "kernel",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "kernel = smooth_gaussian_kernel(0.4)\n# kernel = classical_gaussian_kernel(5, 1)\nlevels = 5\nwindow_size = 5\nimage1 = plt.imread('images/dog.png')\nimage2 = plt.imread('images/tiger.jpg')\n# to align the image to improve the result (optional)\n# three points of each image should be selected\nimage2 = align_images(image1, image2)\n# resize the two images to get better result.",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "levels",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "levels = 5\nwindow_size = 5\nimage1 = plt.imread('images/dog.png')\nimage2 = plt.imread('images/tiger.jpg')\n# to align the image to improve the result (optional)\n# three points of each image should be selected\nimage2 = align_images(image1, image2)\n# resize the two images to get better result.\nimage_size = (2**(levels+3), 2**(levels+3))\nimage1 = resize(image1, image_size)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "window_size",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "window_size = 5\nimage1 = plt.imread('images/dog.png')\nimage2 = plt.imread('images/tiger.jpg')\n# to align the image to improve the result (optional)\n# three points of each image should be selected\nimage2 = align_images(image1, image2)\n# resize the two images to get better result.\nimage_size = (2**(levels+3), 2**(levels+3))\nimage1 = resize(image1, image_size)\nimage2 = resize(image2, image_size)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image1",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image1 = plt.imread('images/dog.png')\nimage2 = plt.imread('images/tiger.jpg')\n# to align the image to improve the result (optional)\n# three points of each image should be selected\nimage2 = align_images(image1, image2)\n# resize the two images to get better result.\nimage_size = (2**(levels+3), 2**(levels+3))\nimage1 = resize(image1, image_size)\nimage2 = resize(image2, image_size)\nimage3 = rgb_to_gray(image1)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image2",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image2 = plt.imread('images/tiger.jpg')\n# to align the image to improve the result (optional)\n# three points of each image should be selected\nimage2 = align_images(image1, image2)\n# resize the two images to get better result.\nimage_size = (2**(levels+3), 2**(levels+3))\nimage1 = resize(image1, image_size)\nimage2 = resize(image2, image_size)\nimage3 = rgb_to_gray(image1)\ngau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image2",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image2 = align_images(image1, image2)\n# resize the two images to get better result.\nimage_size = (2**(levels+3), 2**(levels+3))\nimage1 = resize(image1, image_size)\nimage2 = resize(image2, image_size)\nimage3 = rgb_to_gray(image1)\ngau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)\ngau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)\n# choose pyramids to hybridize\nGAU = gau1[1]",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image_size",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image_size = (2**(levels+3), 2**(levels+3))\nimage1 = resize(image1, image_size)\nimage2 = resize(image2, image_size)\nimage3 = rgb_to_gray(image1)\ngau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)\ngau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)\n# choose pyramids to hybridize\nGAU = gau1[1]\nLAP1 = lap2[-2]\nLAP2 = lap2[-1]",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image1",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image1 = resize(image1, image_size)\nimage2 = resize(image2, image_size)\nimage3 = rgb_to_gray(image1)\ngau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)\ngau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)\n# choose pyramids to hybridize\nGAU = gau1[1]\nLAP1 = lap2[-2]\nLAP2 = lap2[-1]\n# To ensure pyramid images can be added together.",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image2",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image2 = resize(image2, image_size)\nimage3 = rgb_to_gray(image1)\ngau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)\ngau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)\n# choose pyramids to hybridize\nGAU = gau1[1]\nLAP1 = lap2[-2]\nLAP2 = lap2[-1]\n# To ensure pyramid images can be added together.\nLAP1 = resize(LAP1, GAU.shape)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "image3",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "image3 = rgb_to_gray(image1)\ngau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)\ngau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)\n# choose pyramids to hybridize\nGAU = gau1[1]\nLAP1 = lap2[-2]\nLAP2 = lap2[-1]\n# To ensure pyramid images can be added together.\nLAP1 = resize(LAP1, GAU.shape)\nLAP2 = resize(LAP2, GAU.shape)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "GAU",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "GAU = gau1[1]\nLAP1 = lap2[-2]\nLAP2 = lap2[-1]\n# To ensure pyramid images can be added together.\nLAP1 = resize(LAP1, GAU.shape)\nLAP2 = resize(LAP2, GAU.shape)\n# set different weight for images to be hybridized.\nalpha = 0.3\nbeta1 = 0.2\nbeta2 = 0.9",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "LAP1",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "LAP1 = lap2[-2]\nLAP2 = lap2[-1]\n# To ensure pyramid images can be added together.\nLAP1 = resize(LAP1, GAU.shape)\nLAP2 = resize(LAP2, GAU.shape)\n# set different weight for images to be hybridized.\nalpha = 0.3\nbeta1 = 0.2\nbeta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "LAP2",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "LAP2 = lap2[-1]\n# To ensure pyramid images can be added together.\nLAP1 = resize(LAP1, GAU.shape)\nLAP2 = resize(LAP2, GAU.shape)\n# set different weight for images to be hybridized.\nalpha = 0.3\nbeta1 = 0.2\nbeta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "LAP1",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "LAP1 = resize(LAP1, GAU.shape)\nLAP2 = resize(LAP2, GAU.shape)\n# set different weight for images to be hybridized.\nalpha = 0.3\nbeta1 = 0.2\nbeta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "LAP2",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "LAP2 = resize(LAP2, GAU.shape)\n# set different weight for images to be hybridized.\nalpha = 0.3\nbeta1 = 0.2\nbeta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')\nplt.show()",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "alpha",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "alpha = 0.3\nbeta1 = 0.2\nbeta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')\nplt.show()",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "beta1",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "beta1 = 0.2\nbeta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')\nplt.show()",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "beta2",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "beta2 = 0.9\nhybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')\nplt.show()",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "hybrid_image",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "hybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2\nhybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')\nplt.show()",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "hybrid_image",
+        "kind": 5,
+        "importPath": "hybrid_image",
+        "description": "hybrid_image",
+        "peekOfCode": "hybrid_image = normalize(hybrid_image)\nplt.imshow(hybrid_image)\nplt.savefig('OutputImages/hybrid_image0.png')\nplt.show()",
+        "detail": "hybrid_image",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_pyramid",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def gaussian_pyramid(image, kernel, levels):\n    \"\"\"\n    A function to create a Gaussian pyramid of a defined number of levels and from a chosen kernel.\n    :param image: The image we want to use of dimension (N,M,3) or (M,N)\n    :param kernel: The Gaussian kernel of dimention (k,k)\n    :param levels: The desired number of levels in the Gaussian pyramid, an integer\n    :return: The Gaussian pyramid, a list of numpy arrays\n    \"\"\"\n    if len(np.shape(image)) == 3:\n        gauss_l_r = image[:, :, 0]",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "laplacian_pyramid",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def laplacian_pyramid(image, kernel, levels):\n    \"\"\"\n    A function to create a Laplacian pyramid of a defined number of levels and from a chosen kernel.\n    :param image: The image we want to use of dimension (N,M,3) or (M,N)\n    :param kernel: The Gaussian kernel of dimension (k,k)\n    :param levels: The desired number of levels in the Laplacian pyramid, an integer\n    :return: The Laplacian pyramid, a list of numpy arrays\n    \"\"\"\n    gauss = gaussian_pyramid(image, kernel, levels)\n    pyramid = []",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "normalize",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def normalize(image):\n    \"\"\"\n   A function to Normalize the image (make it ranges from 0 to 1)\n   :param image: The image we want to normalize\n   :return: The normalized image\n   \"\"\"\n    image_min = image.min()\n    image_max = image.max()\n    image_normalized = (image - image_min) / (image_max - image_min + 1e-8)\n    return image_normalized",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "collapse_pyramid",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def collapse_pyramid(lap_pyramid, gauss_pyramid):\n    \"\"\"\n    A function to collapse a Laplacian pyramid in order to recover the enhanced image\n    :param lap_pyramid: A Laplacian pyramid, a list of grayscale images, the last one in highest resolution\n    :param gauss_pyramid: A Gaussian pyramid, a list of grayscale images, the last one in lowest resolution\n    :return: A grayscale image\n    \"\"\"\n    image = lap_pyramid[0]\n    if len(np.shape(image)) == 3:\n        im_r = upsample(gauss_pyramid[-1][:, :, 0])",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "convolve",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def convolve(image, kernel):\n    \"\"\"\n    A fonction to perform a 2D convolution operation over an image using a chosen kernel.\n    :param image: The grayscale image we want to use of dimension (N,M)\n    :param kernel: The convolution kernel of dimention (k,k)\n    :return: The convolved image of dimension (N,M)\n    \"\"\"\n    im_out = convolve2d(image, kernel, mode='same', boundary='symm')\n    return im_out\ndef downsample(image, kernel):",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "downsample",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def downsample(image, kernel):\n    \"\"\"\n    A function to downsample an image.\n    :param image: The grayscale image we want to use of dimension (N,M)\n    :param kernel: The Gaussian blurring kernel of dimention (k,k)\n    :return: The downsampled image of dimension (N/factor,M/factor)\n    \"\"\"\n    blur_image = convolve(image, kernel)\n    img_downsampled = blur_image[::2, ::2]\n    return img_downsampled",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "upsample",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def upsample(image):\n    \"\"\"\n    :param image: The grayscale image we want to use of dimension (N,M)\n    :param factor: The upsampling factor, an integer\n    :return: The upsampled image of dimension (N*factor,M*factor)\n    \"\"\"\n    #kernel = np.array([[1, 2, 1], [2, 4, 2], [1, 2, 1]])/12\n    kernel = smooth_gaussian_kernel(0.4)\n    img_upsampled = np.zeros((image.shape[0]*2, image.shape[1]*2), dtype=np.float64)\n    img_upsampled[::2, ::2] = image[:, :]",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "classical_gaussian_kernel",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def classical_gaussian_kernel(k, sigma):\n    \"\"\"\n    A function to generate a classical Gaussian kernel\n    :param k: The size of the kernel, an integer\n    :param sigma: variance of the gaussian distribution\n    :return: A Gaussian kernel, a numpy array of shape (k,k)\n    \"\"\"\n    w = np.linspace(-(k - 1) / 2, (k - 1) / 2, k)\n    x, y = np.meshgrid(w, w)\n    kernel = 0.5*np.exp(-0.5*(x**2 + y**2)/(sigma**2))/(np.pi*sigma**2)",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "smooth_gaussian_kernel",
+        "kind": 2,
+        "importPath": "pyramids",
+        "description": "pyramids",
+        "peekOfCode": "def smooth_gaussian_kernel(a):\n    \"\"\"\n     A 5*5 gaussian kernel to perform smooth filtering.\n    :param a: the coefficient of the smooth filter. A float usually within [0.3, 0.6]\n    :return: A smoothing Gaussian kernel, a numpy array of shape (5,5)\n    \"\"\"\n    w = np.array([0.25 - a/2.0, 0.25, a, 0.25, 0.25 - a/2.0])\n    kernel = np.outer(w, w)\n    kernel = kernel / np.sum(kernel)\n    return kernel",
+        "detail": "pyramids",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_kernel",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def gaussian_kernel(kernel_size, sigma):\n    \"\"\"Generate a Gaussian kernel.\"\"\"\n    kernel = np.zeros((kernel_size, kernel_size), dtype=np.float32)\n    center = kernel_size // 2\n    for i in range(kernel_size):\n        for j in range(kernel_size):\n            x, y = i - center, j - center\n            kernel[i, j] = np.exp(-(x**2 + y**2) / (2 * sigma**2))\n    kernel /= kernel.sum()\n    return kernel",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_blur",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def gaussian_blur(image, kernel):\n    \"\"\"Apply Gaussian blur using the given kernel.\"\"\"\n    h, w, c = image.shape\n    pad = kernel.shape[0] // 2\n    padded_image = np.pad(image, [(pad, pad), (pad, pad), (0, 0)], mode='reflect')\n    blurred = np.zeros_like(image, dtype=np.float32)\n    for x in range(h):\n        for y in range(w):\n            for ch in range(c):\n                blurred[x, y, ch] = np.sum(",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "downsample",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def downsample(image):\n    \"\"\"Downsample the image by a factor of 2.\"\"\"\n    return image[::2, ::2]\ndef upsample(image):\n    \"\"\"Upsample the image by a factor of 2.\"\"\"\n    h, w, c = image.shape\n    upsampled = np.zeros((h * 2, w * 2, c), dtype=image.dtype)\n    upsampled[::2, ::2] = image\n    # Fill the gaps using average of neighbors\n    for i in range(h * 2):",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "upsample",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def upsample(image):\n    \"\"\"Upsample the image by a factor of 2.\"\"\"\n    h, w, c = image.shape\n    upsampled = np.zeros((h * 2, w * 2, c), dtype=image.dtype)\n    upsampled[::2, ::2] = image\n    # Fill the gaps using average of neighbors\n    for i in range(h * 2):\n        for j in range(w * 2):\n            if i % 2 == 1 or j % 2 == 1:\n                neighbors = []",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "gaussian_pyramid",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def gaussian_pyramid(image, levels, kernel):\n    \"\"\"Build Gaussian Pyramid.\"\"\"\n    pyramid = [image]\n    for _ in range(levels):\n        image = gaussian_blur(image, kernel)\n        image = downsample(image)\n        pyramid.append(image)\n    return pyramid\ndef laplacian_pyramid(gaussian_pyramid):\n    \"\"\"Build Laplacian Pyramid.\"\"\"",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "laplacian_pyramid",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def laplacian_pyramid(gaussian_pyramid):\n    \"\"\"Build Laplacian Pyramid.\"\"\"\n    laplacian_pyramid = []\n    for i in range(len(gaussian_pyramid) - 1):\n        upsampled = upsample(gaussian_pyramid[i + 1])\n        upsampled = upsampled[:gaussian_pyramid[i].shape[0], :gaussian_pyramid[i].shape[1]]\n        laplacian = gaussian_pyramid[i] - upsampled\n        laplacian_pyramid.append(laplacian)\n    laplacian_pyramid.append(gaussian_pyramid[-1])\n    return laplacian_pyramid",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "reconstruct_image",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def reconstruct_image(laplacian_pyramid):\n    \"\"\"Reconstruct image from Laplacian Pyramid.\"\"\"\n    image = laplacian_pyramid[-1]\n    for i in range(len(laplacian_pyramid) - 2, -1, -1):\n        upsampled = upsample(image)\n        upsampled = upsampled[:laplacian_pyramid[i].shape[0], :laplacian_pyramid[i].shape[1]]\n        image = upsampled + laplacian_pyramid[i]\n    return image\ndef pyramid_blending(img1, img2, mask, levels, kernel):\n    \"\"\"Perform Pyramid Blending.\"\"\"",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "pyramid_blending",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def pyramid_blending(img1, img2, mask, levels, kernel):\n    \"\"\"Perform Pyramid Blending.\"\"\"\n    gp1 = gaussian_pyramid(img1, levels, kernel)\n    gp2 = gaussian_pyramid(img2, levels, kernel)\n    gpm = gaussian_pyramid(mask, levels, kernel)\n    lp1 = laplacian_pyramid(gp1)\n    lp2 = laplacian_pyramid(gp2)\n    blended_pyramid = []\n    for l1, l2, gm in zip(lp1, lp2, gpm):\n        blended = l1 * gm + l2 * (1 - gm)",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "load_image",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def load_image(path):\n    \"\"\"Load image using PIL.\"\"\"\n    return np.array(Image.open(path).convert(\"RGB\"), dtype=np.float32) / 255.0\ndef save_image(image, path):\n    \"\"\"Save image using PIL.\"\"\"\n    img = Image.fromarray((image * 255).astype(np.uint8))\n    img.save(path)\ndef create_horizontal_gradient_mask(h, w):\n    \"\"\"Create horizontal gradient mask.\"\"\"\n    mask = np.zeros((h, w), dtype=np.float32)",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "save_image",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def save_image(image, path):\n    \"\"\"Save image using PIL.\"\"\"\n    img = Image.fromarray((image * 255).astype(np.uint8))\n    img.save(path)\ndef create_horizontal_gradient_mask(h, w):\n    \"\"\"Create horizontal gradient mask.\"\"\"\n    mask = np.zeros((h, w), dtype=np.float32)\n    for i in range(w):\n        mask[:, i] = i / (w - 1)\n    mask = np.repeat(mask[:, :, np.newaxis], 3, axis=2)  # Expand to 3 channels",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "create_horizontal_gradient_mask",
+        "kind": 2,
+        "importPath": "Pyramid_Blending",
+        "description": "Pyramid_Blending",
+        "peekOfCode": "def create_horizontal_gradient_mask(h, w):\n    \"\"\"Create horizontal gradient mask.\"\"\"\n    mask = np.zeros((h, w), dtype=np.float32)\n    for i in range(w):\n        mask[:, i] = i / (w - 1)\n    mask = np.repeat(mask[:, :, np.newaxis], 3, axis=2)  # Expand to 3 channels\n    return mask\n# Main script\nif __name__ == \"__main__\":\n    # Load images",
+        "detail": "Pyramid_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "create_elliptical_mask",
+        "kind": 2,
+        "importPath": "Region_Blending",
+        "description": "Region_Blending",
+        "peekOfCode": "def create_elliptical_mask(h, w, center, axes, angle=0):\n    \"\"\"\n    Create an elliptical mask for Region Blending.\n    :param h: Height of the mask\n    :param w: Width of the mask\n    :param center: Center of the ellipse (x, y)\n    :param axes: Lengths of the ellipse axes (x_radius, y_radius)\n    :param angle: Rotation angle of the ellipse (in degrees)\n    :return: A 2D elliptical mask normalized to [0, 1]\n    \"\"\"",
+        "detail": "Region_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "region_blending",
+        "kind": 2,
+        "importPath": "Region_Blending",
+        "description": "Region_Blending",
+        "peekOfCode": "def region_blending(img1, img2, mask, levels, kernel):\n    \"\"\"\n    Perform Region Blending using Laplacian Pyramid.\n    :param img1: First image\n    :param img2: Second image\n    :param mask: 3-channel mask defining blending region\n    :param levels: Number of pyramid levels\n    :param kernel: Gaussian kernel for pyramid construction\n    :return: Blended image\n    \"\"\"",
+        "detail": "Region_Blending",
+        "documentation": {}
+    },
+    {
+        "label": "resize_image",
+        "kind": 2,
+        "importPath": "Region_Blending",
+        "description": "Region_Blending",
+        "peekOfCode": "def resize_image(image, target_size):\n    \"\"\"Resize image to the target size (height, width).\"\"\"\n    return np.array(Image.fromarray((image * 255).astype(np.uint8)).resize(target_size[::-1])).astype(np.float32) / 255.0\n# Main script for Region Blending\nif __name__ == \"__main__\":\n    # Load two images\n    img1 = load_image(r\"blending_images\\\\Region_Blending_img\\\\eye_2.jpg\")\n    img2 = load_image(r\"blending_images\\\\Region_Blending_img\\\\hand_2.jpg\")\n    # Ensure images have the same size\n    target_size = (min(img1.shape[0], img2.shape[0]), min(img1.shape[1], img2.shape[1]))",
+        "detail": "Region_Blending",
+        "documentation": {}
+    }
+]

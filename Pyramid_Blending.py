@@ -118,8 +118,8 @@ def create_horizontal_gradient_mask(h, w):
 # Main script
 if __name__ == "__main__":
     # Load images
-    img1 = load_image("D:/Desktop/CV/CVprojectCode/Pyramid_Blending_img/apple.png")
-    img2 = load_image("D:/Desktop/CV/CVprojectCode/Pyramid_Blending_img/orange.png")
+    img1 = load_image(r"blending_images\\Pyramid_Blending_img\\apple.png")
+    img2 = load_image(r"blending_images\\Pyramid_Blending_img\\orange.png")
 
     # Create horizontal gradient mask
     h, w, _ = img1.shape
@@ -132,4 +132,4 @@ if __name__ == "__main__":
     blended_image = pyramid_blending(img1, img2, mask, levels=5, kernel=kernel)
 
     # Save result
-    save_image(blended_image, "D:/Desktop/CV/CVprojectCode/Pyramid_Blending_img/blended_image.jpg")
+    save_image(blended_image, r"blending_images\\Pyramid_Blending_img\\blended_image.jpg")
