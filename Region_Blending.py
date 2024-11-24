@@ -1,7 +1,6 @@
 import numpy as np
 from PIL import Image
 from Pyramid_Blending import*
-# 已有的函数保持不变（如 Gaussian Kernel, Gaussian Blur, Downsample, Upsample 等）
 
 def create_elliptical_mask(h, w, center, axes, angle=0):
     """
@@ -58,8 +57,8 @@ def resize_image(image, target_size):
 # Main script for Region Blending
 if __name__ == "__main__":
     # Load two images
-    img1 = load_image(r"D:/Desktop/CV/CVprojectCode/Region_Blending_img/eye_2.jpg")
-    img2 = load_image(r"D:/Desktop/CV/CVprojectCode/Region_Blending_img/hand_2.jpg")
+    img1 = load_image(r"blending_images\\Region_Blending_img\\eye_2.jpg")
+    img2 = load_image(r"blending_images\\Region_Blending_img\\hand_2.jpg")
 
     # Ensure images have the same size
     target_size = (min(img1.shape[0], img2.shape[0]), min(img1.shape[1], img2.shape[1]))
@@ -82,6 +81,6 @@ if __name__ == "__main__":
     blended_image = region_blending(img1, img2, mask, levels=5, kernel=kernel)
 
     # Save the blended image
-    save_image(blended_image, r"D:/Desktop/CV/CVprojectCode/Region_Blending_img/region_blended_image.jpg")
-    print("Region blended image saved at: D:/Desktop/CV/CVprojectCode/Region_Blending_img/region_blended_image.jpg")
+    save_image(blended_image, r"blending_images\\Region_Blending_img\\region_blended_image.jpg")
+
 
