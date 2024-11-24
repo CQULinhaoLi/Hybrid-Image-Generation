@@ -32,7 +32,7 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
         ax.axis('off')  # hide the axis
 
     plt.tight_layout()
-    # plt.savefig('OutputImages/HKUGaussianPyramids.png')
+    plt.savefig('OutputImages/dogGaussianPyramids.png')
     plt.show()
 
     fig = plt.figure(figsize=(10, 5))
@@ -44,7 +44,7 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
         ax.axis('off')  # hide the axis
 
     plt.tight_layout()
-    # plt.savefig('OutputImages/HKULaplacianPyramids.png')
+    # plt.savefig('OutputImages/tigerLaplacianPyramids.png')
     plt.show()
 
     # Building and displaying collapsed image
