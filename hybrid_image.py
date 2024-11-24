@@ -114,5 +114,5 @@ hybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2
 
 hybrid_image = normalize(hybrid_image)
 plt.imshow(hybrid_image)
-plt.savefig('OutputImages/hybrid_image_test.png')
+plt.savefig('OutputImages/HybridImages/HI_3.png')
 plt.show()
