@@ -15,7 +15,6 @@ This project requires the following libraries:
 - `matplotlib`
 - `numpy`
 - `skimage`
-- `gridspec`
 - `opencv-python`
 - `scipy`
 - `pillow`
@@ -95,23 +94,29 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
     """
 ```
 
-## Example 1
+## Example 1 Hybrid Image
 ### Input
-- `images\Umacau.jpg`
+- `images\dog.png`
 
-- ![Umacau badge](images/Umacau.jpg)
+- ![Umacau badge](images/dog.png)
 
-**Umacau badge**
-- `images\HKU.jpg`
+- `images\tiger.jpg`
 
-- ![HKU badge](images/HKU.jpg)
+- ![HKU badge](images/tiger.jpg)
 
-**HKU badge**
+
 ### Output
-The hybrid image combines the low-frequency content of `Umacau.jpg` with the high-frequency content of `HKU.jpg`. The result changes interpretation when viewed from different distances.
-- ![Hybrid image](OutputImages/HybridImages/hybrid_image3.png)
+**Gaussian Pyramids**
+- ![Gaussian_pyramid](OutputImages/Pyramids/dogGaussianPyramids.png)
+**Laplacian Pyramids**
+- ![Laplacian Pyramids](OutputImages/Pyramids/tigerLaplacianPyramids.png)
+The hybrid image combines the low-frequency content of `dog.png` with the high-frequency content of `tiger.jpg`. The result changes interpretation when viewed from different distances.
+- ![Hybrid image](OutputImages/HybridImages/hybrid_image_test.png)
 
 ## Example 2 Pyramid_Blending
+```bash
+python Pyramid_Blending.py
+```
 ### Input 1
 - `blending_images/Pyramid_Blending_img/apple.png`
 
@@ -127,14 +132,10 @@ The hybrid image combines the low-frequency content of `Umacau.jpg` with the hig
 
 ![blended_image](blending_images/Pyramid_Blending_img/blended_image.jpg)
 
-
-### Output
-- `blending_images\Pyramid_Blending_img\blended_image.jpg`
-
-- ![blended_image](blending_images\Pyramid_Blending_img\blended_image.jpg)
-
-
 ## Example 3 Region_Blending
+```bash
+python Region_Blending.py
+```
 ### Input 1
 - `blending_images/Region_Blending_img/eye_2.jpg`
 
