@@ -113,14 +113,20 @@ The hybrid image combines the low-frequency content of `Umacau.jpg` with the hig
 
 ## Example 2 Pyramid_Blending
 ### Input 1
-- `blending_images\Pyramid_Blending_img\apple.png`
+- `blending_images/Pyramid_Blending_img/apple.png`
 
-- ![apple](blending_images/Pyramid_Blending_img/apple.png)
+![apple](blending_images/Pyramid_Blending_img/apple.png)
 
 ### Input 2
-- `blending_images\Pyramid_Blending_img\orange.png`
+- `blending_images/Pyramid_Blending_img/orange.png`
 
-- ![orange](blending_images\Pyramid_Blending_img\orange.png)
+![orange](blending_images/Pyramid_Blending_img/orange.png)
+
+### Output
+- `blending_images/Pyramid_Blending_img/blended_image.jpg`
+
+![blended_image](blending_images/Pyramid_Blending_img/blended_image.jpg)
+
 
 ### Output
 - `blending_images\Pyramid_Blending_img\blended_image.jpg`
@@ -130,19 +136,20 @@ The hybrid image combines the low-frequency content of `Umacau.jpg` with the hig
 
 ## Example 3 Region_Blending
 ### Input 1
-- `blending_images\Region_Blending_img\eye_2.jpg`
+- `blending_images/Region_Blending_img/eye_2.jpg`
 
-- ![eye_2](blending_images\Region_Blending_img\eye_2.jpg)
+![eye_2](blending_images/Region_Blending_img/eye_2.jpg)
 
 ### Input 2
-- `blending_images\Region_Blending_img\hand_2.jpg`
+- `blending_images/Region_Blending_img/hand_2.jpg`
 
-- ![hand_2](blending_images\Region_Blending_img\hand_2.jpg)
+![hand_2](blending_images/Region_Blending_img/hand_2.jpg)
 
 ### Output
-- `blending_images\Region_Blending_img\region_blended_image.jpg`
+- `blending_images/Region_Blending_img/region_blended_image.jpg`
 
-- ![region_blended_image](blending_images\Region_Blending_img\region_blended_image.jpg)
+![region_blended_image](blending_images/Region_Blending_img/region_blended_image.jpg)
+
 
 
 
