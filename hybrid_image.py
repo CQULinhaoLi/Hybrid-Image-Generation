@@ -32,7 +32,7 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
         ax.axis('off')  # hide the axis
 
     plt.tight_layout()
-    plt.savefig('OutputImages/dogGaussianPyramids.png')
+    # plt.savefig('OutputImages/dogGaussianPyramid2.png')
     plt.show()
 
     fig = plt.figure(figsize=(10, 5))
@@ -44,7 +44,7 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
         ax.axis('off')  # hide the axis
 
     plt.tight_layout()
-    # plt.savefig('OutputImages/tigerLaplacianPyramids.png')
+    plt.savefig('OutputImages/tigerLaplacianPyramid2.png')
     plt.show()
 
     # Building and displaying collapsed image
@@ -93,7 +93,7 @@ image1 = resize(image1, image_size)
 image2 = resize(image2, image_size)
 image3 = rgb_to_gray(image1)
 
-gau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)
+# gau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)
 gau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)
 
 # choose pyramids to hybridize
@@ -105,14 +105,14 @@ LAP1 = resize(LAP1, GAU.shape)
 LAP2 = resize(LAP2, GAU.shape)
 
 # set different weight for images to be hybridized.
-alpha = 0.3
-beta1 = 0.2
-beta2 = 0.9
+alpha = 1.0
+beta1 = 1.0
+beta2 = 0
 
 hybrid_image = alpha * GAU + beta1 * LAP1 + beta2 * LAP2
 
 
 hybrid_image = normalize(hybrid_image)
 plt.imshow(hybrid_image)
-plt.savefig('OutputImages/HybridImages/HI_3.png')
+plt.savefig('OutputImages/HybridImages/dog-tiger-hybrid.png')
 plt.show()

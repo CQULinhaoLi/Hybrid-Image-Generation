@@ -98,11 +98,11 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
 ### Input
 - `images\dog.png`
 
-- ![Umacau badge](images/dog.png)
+- ![Dog](images/dog.png)
 
 - `images\tiger.jpg`
 
-- ![HKU badge](images/tiger.jpg)
+- ![Tiger](images/tiger.jpg)
 
 
 ### Output
@@ -111,7 +111,9 @@ def main_gaussian_laplacian_pyramids(image, kernel, levels):
 **Laplacian Pyramids**
 - ![Laplacian Pyramids](OutputImages/Pyramids/tigerLaplacianPyramids.png)
 The hybrid image combines the low-frequency content of `dog.png` with the high-frequency content of `tiger.jpg`. The result changes interpretation when viewed from different distances.
-- ![Hybrid image](OutputImages/HybridImages/hybrid_image_test.png)
+- ![Selected Dog](OutputImages/HybridImages/Selected_dog_for_hybrid_image.png)
+- ![Selected Tiger](OutputImages/HybridImages/Selected_tiger_for_hybrid_image.png)
+- ![Hybrid image](OutputImages/HybridImages/dog-tiger-hybrid.png)
 
 ## Example 2 Pyramid_Blending
 ```bash
