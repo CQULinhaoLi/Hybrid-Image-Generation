@@ -93,7 +93,7 @@ image1 = resize(image1, image_size)
 image2 = resize(image2, image_size)
 image3 = rgb_to_gray(image1)
 
-# gau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)
+gau1, lap1 = main_gaussian_laplacian_pyramids(image1, kernel, levels)
 gau2, lap2 = main_gaussian_laplacian_pyramids(image2, kernel, levels)
 
 # choose pyramids to hybridize
